@@ -1,4 +1,4 @@
-![Tests](https://github.com/Jeurei/rails-project-63/actions/workflows/lint/badge.svg)
+![Tests](https://github.com/Jeurei/rails-project-63/actions/workflows/lint.yml/badge.svg)
 
 # FormGenerator
 
