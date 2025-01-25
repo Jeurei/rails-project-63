@@ -42,12 +42,22 @@ module FormGenerator
                   else
                     'input'
                   end
+      args[:name] = key
       args[:value] = @struct[key] if @struct
 
+      label = FormGenerator::Tag.new('label', for: key) { key.capitalize }
       input = FormGenerator::Tag.new(input_tag, args)
-      @content += input.to_s
+      @content += label.to_s + input.to_s
 
       input
+    end
+
+    def submit(value = 'Save')
+      submit = FormGenerator::Tag.new('input', type: 'submit', value: value)
+
+      @content += submit.to_s
+
+      submit
     end
 
     def to_s
