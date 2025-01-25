@@ -5,9 +5,9 @@ require_relative '../lib/hexlet_code'
 
 User = Struct.new(:name, :job, keyword_init: true)
 
-describe 'form_generator' do
-  user = User.new name: 'rob', job: 'developer'
+user = User.new name: 'rob', job: 'developer'
 
+describe 'form_generator' do
   it 'should generate a form' do
     assert_equal '<form action="#" method="post"></form>', HexletCode.form_for(user).to_s
   end
@@ -22,43 +22,50 @@ describe 'form_generator' do
                                                                                                  url: '/users',
                                                                                                  class: 'form').to_s
   end
+end
 
+describe 'key validation' do
+  it 'should throw an error if the field is not present' do
+    assert_raises('Key or method `not_present` not found in the provided struct') do
+      HexletCode.form_for(user) do |f|
+        f.input :not_present
+      end
+    end
+  end
+end
+
+describe 'form_generator_with_fields' do
   it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
       f.input :name
     end.to_s
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /></form>', # rubocop:disable Layout/LineLength
                  result
   end
 
-  it 'should generate a form with multiple inputs' do
-    result = HexletCode.form_for(user) do |f|
-      f.input :name
-      f.input :job
-    end
-
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><input name="job" value="developer" type="text" /></form>',
-                 result.to_s
-  end
   it 'should generate a form with multiple inputs and textarea' do
     result = HexletCode.form_for(user) do |f|
       f.input :name
       f.input :job, as: :text
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><textarea name="job">developer</textarea></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><textarea name="job">developer</textarea></form>', # rubocop:disable Layout/LineLength
                  result.to_s
   end
+
   it 'should add attributes to inputs' do
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: 'input'
       f.input :job, as: :text, class: 'textarea'
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea></form>', # rubocop:disable Layout/LineLength
                  result.to_s
   end
+end
+
+describe 'submit generator' do
   it 'should generate a form with a submit button' do
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: 'input'
@@ -66,15 +73,7 @@ describe 'form_generator' do
       f.submit
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea><input type="submit" value="Save" /></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea><input type="submit" value="Save" /></form>', # rubocop:disable Layout/LineLength
                  result.to_s
-  end
-
-  it 'should throw an error if the field is not present' do
-    assert_raises('Key or method `not_present` not found in the provided struct') do
-      HexletCode.form_for(user) do |f|
-        f.input :not_present
-      end
-    end
   end
 end

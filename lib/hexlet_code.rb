@@ -37,26 +37,15 @@ module HexletCode
     end
 
     def input(key, args = {})
-      raise NoMethodError, "Key or method `#{key}` not found in the provided struct" unless @struct.respond_to?(key)
+      validate_key(key)
 
-      as_tag = args[:as].to_s || 'input'
+      input_tag = determine_input_tag(args)
+      args = prepare_attributes(key, args, input_tag)
 
-      args.delete(:as)
+      label = build_label(key)
+      input = build_input(input_tag, key, args)
 
-      input_tag = if as_tag == 'text'
-                    'textarea'
-                  else
-                    'input'
-                  end
-      args[:name] = key
-      args[:value] = @struct[key] if @struct && input_tag == 'input'
-
-      args[:type] = 'text' if input_tag == 'input'
-
-      label = HexletCode::Tag.new('label', for: key) { key.capitalize }
-      input = HexletCode::Tag.new(input_tag, args) { input_tag == 'input' ? '' : @struct[key] }
-      @content += label.to_s + input.to_s
-
+      @content += label + input
       input
     end
 
@@ -78,6 +67,35 @@ module HexletCode
 
     def to_s
       HexletCode::Tag.new('form', @args) { @content }.to_s
+    end
+
+    private
+
+    def validate_key(key)
+      return if @struct.respond_to?(key)
+
+      raise NoMethodError, "Key or method `#{key}` not found in the provided struct"
+    end
+
+    def determine_input_tag(args)
+      as_tag = args.delete(:as) || 'input'
+      as_tag.to_s == 'text' ? 'textarea' : 'input'
+    end
+
+    def prepare_attributes(key, args, input_tag)
+      args[:name] = key
+      args[:value] = @struct[key] if @struct && input_tag == 'input'
+      args[:type] = 'text' if input_tag == 'input'
+      args
+    end
+
+    def build_label(key)
+      HexletCode::Tag.new('label', for: key) { key.capitalize }.to_s
+    end
+
+    def build_input(input_tag, key, args)
+      content = input_tag == 'textarea' ? @struct[key] : ''
+      HexletCode::Tag.new(input_tag, args) { content }.to_s
     end
   end
 end
