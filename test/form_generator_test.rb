@@ -34,34 +34,38 @@ describe 'key validation' do
   end
 end
 
-describe 'form_generator_with_fields' do
+describe 'form_generator_with_fields' do # rubocop:disable Metrics/BlockLength
   it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
-      f.input :name
+      f.input :name, class: 'input'
     end.to_s
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /></form>', # rubocop:disable Layout/LineLength
-                 result
+    expected = <<~HTML.strip
+      <form action="#" method="post">
+        <label for="name">Name</label>
+        <input class="input" name="name" value="rob" type="text" />
+      </form>
+    HTML
+
+    assert_equal expected.gsub(/>\s+</, '><').gsub(/\n/, ''), result
   end
 
   it 'should generate a form with multiple inputs and textarea' do
     result = HexletCode.form_for(user) do |f|
       f.input :name
       f.input :job, as: :text
-    end
+    end.to_s
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><textarea name="job">developer</textarea></form>', # rubocop:disable Layout/LineLength
-                 result.to_s
-  end
+    expected = <<~HTML.strip
+      <form action="#" method="post">
+        <label for="name">Name</label>
+        <input name="name" value="rob" type="text" />
+        <label for="job">Job</label>
+        <textarea name="job">developer</textarea>
+      </form>
+    HTML
 
-  it 'should add attributes to inputs' do
-    result = HexletCode.form_for(user) do |f|
-      f.input :name, class: 'input'
-      f.input :job, as: :text, class: 'textarea'
-    end
-
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea></form>', # rubocop:disable Layout/LineLength
-                 result.to_s
+    assert_equal expected.gsub(/>\s+</, '><').gsub(/\n/, ''), result
   end
 end
 
@@ -71,9 +75,18 @@ describe 'submit generator' do
       f.input :name, class: 'input'
       f.input :job, as: :text, class: 'textarea'
       f.submit
-    end
+    end.to_s
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea><input type="submit" value="Save" /></form>', # rubocop:disable Layout/LineLength
-                 result.to_s
+    expected = <<~HTML.strip
+      <form action="#" method="post">
+        <label for="name">Name</label>
+        <input class="input" name="name" value="rob" type="text" />
+        <label for="job">Job</label>
+        <textarea class="textarea" name="job">developer</textarea>
+        <input type="submit" value="Save" />
+      </form>
+    HTML
+
+    assert_equal expected.gsub(/>\s+</, '><').gsub(/\n/, '').strip, result
   end
 end
