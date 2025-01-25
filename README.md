@@ -35,3 +35,29 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at <https://github.com/[USERNAME]/form_generator>.
+
+## Usage example
+
+```ruby
+user = { name: 'John Doe', bio: 'Software Developer' }
+
+form_html = FormGenerator.form_for(user, url: '/submit') do |f|
+f.input :name
+f.input :bio, as: :text
+end.to_s
+
+puts form_html
+
+### Output
+
+```
+
+<form action="/submit" method="post">
+  <input value="John Doe" />
+  <textarea value="Software Developer"></textarea>
+</form>
+```
+
+```
+
+```
