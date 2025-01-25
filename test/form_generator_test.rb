@@ -47,7 +47,7 @@ describe 'form_generator_with_fields' do # rubocop:disable Metrics/BlockLength
       </form>
     HTML
 
-    assert_equal expected.gsub(/>\s+</, '><').gsub(/\n/, ''), result
+    assert_equal expected.gsub(/>\s+</, '><').gsub("\n", '').strip, result
   end
 
   it 'should generate a form with multiple inputs and textarea' do
@@ -65,7 +65,7 @@ describe 'form_generator_with_fields' do # rubocop:disable Metrics/BlockLength
       </form>
     HTML
 
-    assert_equal expected.gsub(/>\s+</, '><').gsub(/\n/, ''), result
+    assert_equal expected.gsub(/>\s+</, '><').gsub("\n", '').strip, result
   end
 end
 
@@ -87,6 +87,6 @@ describe 'submit generator' do
       </form>
     HTML
 
-    assert_equal expected.gsub(/>\s+</, '><').gsub(/\n/, '').strip, result
+    assert_equal expected.gsub(/>\s+</, '><').gsub("\n", '').strip, result
   end
 end
