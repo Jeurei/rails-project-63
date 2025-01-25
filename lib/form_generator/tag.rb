@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FormGenerator
+module HexletCode
   # Create a class Tag that receives a tag and a hash of arguments.
   class Tag
     def self.self_closing_tags

@@ -3,7 +3,7 @@
 require_relative 'form_generator/version'
 
 # Form Generator module
-module FormGenerator
+module HexletCode
   class Error < StandardError; end
   autoload :Tag, 'form_generator/tag'
 
@@ -45,15 +45,15 @@ module FormGenerator
       args[:name] = key
       args[:value] = @struct[key] if @struct
 
-      label = FormGenerator::Tag.new('label', for: key) { key.capitalize }
-      input = FormGenerator::Tag.new(input_tag, args)
+      label = HexletCode::Tag.new('label', for: key) { key.capitalize }
+      input = HexletCode::Tag.new(input_tag, args)
       @content += label.to_s + input.to_s
 
       input
     end
 
     def submit(value = 'Save')
-      submit = FormGenerator::Tag.new('input', type: 'submit', value: value)
+      submit = HexletCode::Tag.new('input', type: 'submit', value: value)
 
       @content += submit.to_s
 
@@ -61,7 +61,7 @@ module FormGenerator
     end
 
     def to_s
-      FormGenerator::Tag.new('form', @args) { @content }.to_s
+      HexletCode::Tag.new('form', @args) { @content }.to_s
     end
   end
 end
