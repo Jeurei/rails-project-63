@@ -23,7 +23,7 @@ module HexletCode
 
     yield(form_instance) if block_given?
 
-    form_instance
+    form_instance.to_s
   end
 
   # Form Generator class
