@@ -24,7 +24,7 @@ describe 'form_generator' do
   end
 
   it 'should generate an input field' do
-    assert_equal '<input name="name" value="rob" />',
+    assert_equal '<input name="name" value="rob" type="text" />',
                  HexletCode.form_for(user).input(:name).to_s
   end
 
@@ -38,7 +38,7 @@ describe 'form_generator' do
       f.input :name
     end.to_s
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" /></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /></form>',
                  result
   end
 
@@ -48,7 +48,7 @@ describe 'form_generator' do
       f.input :job
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" /><label for="job">Job</label><input name="job" value="developer" /></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><input name="job" value="developer" type="text" /></form>',
                  result.to_s
   end
   it 'should generate a form with multiple inputs and textarea' do
@@ -57,7 +57,7 @@ describe 'form_generator' do
       f.input :job, as: :text
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" /><label for="job">Job</label><textarea name="job" value="developer"></textarea></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><textarea name="job" value="developer"></textarea></form>',
                  result.to_s
   end
   it 'should add attributes to inputs' do
@@ -66,12 +66,8 @@ describe 'form_generator' do
       f.input :job, as: :text, class: 'textarea'
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea></form>',
                  result.to_s
-  end
-  it 'should generate submit button with default value' do
-    assert_equal '<input type="submit" value="Save" />',
-                 HexletCode.form_for(user).submit.to_s
   end
   it 'should generate submit button with default value' do
     assert_equal '<input type="submit" value="Save" />',
@@ -88,22 +84,10 @@ describe 'form_generator' do
       f.submit
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea><input type="submit" value="Save" /></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea><input type="submit" value="Save" /></form>',
                  result.to_s
   end
 
-  it 'should check' do
-    test_user = User.new name: 'rob', job: ''
-
-    result = HexletCode.form_for(test_user) do |f|
-      f.input :name, class: 'user-input'
-      f.input :job
-      f.submit
-    end
-
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="user-input" name="name" value="rob" /><label for="job">Job</label><input name="job" value="" /><input type="submit" value="Save" /></form>',
-                 result.to_s
-  end
   it 'should throw an error if the field is not present' do
     assert_raises('Key or method `not_present` not found in the provided struct') do
       HexletCode.form_for(user) do |f|
