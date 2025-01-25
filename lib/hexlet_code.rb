@@ -49,12 +49,12 @@ module HexletCode
                     'input'
                   end
       args[:name] = key
-      args[:value] = @struct[key] if @struct
+      args[:value] = @struct[key] if @struct && input_tag == 'input'
 
       args[:type] = 'text' if input_tag == 'input'
 
       label = HexletCode::Tag.new('label', for: key) { key.capitalize }
-      input = HexletCode::Tag.new(input_tag, args)
+      input = HexletCode::Tag.new(input_tag, args) { input_tag == 'input' ? '' : @struct[key] }
       @content += label.to_s + input.to_s
 
       input

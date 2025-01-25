@@ -23,16 +23,6 @@ describe 'form_generator' do
                                                                                                  class: 'form').to_s
   end
 
-  # it 'should generate an input field' do
-  #   assert_equal '<input name="name" value="rob" type="text" />',
-  #                HexletCode.form_for(user).input(:name).to_s
-  # end
-  #
-  # it 'should generate a text area' do
-  #   assert_equal '<textarea name="name" value="rob"></textarea>',
-  #                HexletCode.form_for(user).input(:name, as: :text).to_s
-  # end
-
   it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
       f.input :name
@@ -57,7 +47,7 @@ describe 'form_generator' do
       f.input :job, as: :text
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><textarea name="job" value="developer"></textarea></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input name="name" value="rob" type="text" /><label for="job">Job</label><textarea name="job">developer</textarea></form>',
                  result.to_s
   end
   it 'should add attributes to inputs' do
@@ -66,17 +56,9 @@ describe 'form_generator' do
       f.input :job, as: :text, class: 'textarea'
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea></form>',
                  result.to_s
   end
-  # it 'should generate submit button with default value' do
-  #   assert_equal '<input type="submit" value="Save" />',
-  #                HexletCode.form_for(user).submit.to_s
-  # end
-  # it 'should generate submit button with custom value' do
-  #   assert_equal '<input type="submit" value="Wow" />',
-  #                HexletCode.form_for(user).submit('Wow').to_s
-  # end
   it 'should generate a form with a submit button' do
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: 'input'
@@ -84,7 +66,7 @@ describe 'form_generator' do
       f.submit
     end
 
-    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea><input type="submit" value="Save" /></form>',
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" type="text" /><label for="job">Job</label><textarea class="textarea" name="job">developer</textarea><input type="submit" value="Save" /></form>',
                  result.to_s
   end
 
