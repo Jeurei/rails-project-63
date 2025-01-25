@@ -14,15 +14,12 @@ describe 'form_generator' do
 
   it 'should generate a form with fields' do
     assert_equal '<form action="#" method="post" class="form"></form>', HexletCode.form_for(user,
-                                                                                            '#',
-                                                                                            :post,
                                                                                             class: 'form').to_s
   end
 
   it 'should generate a form with multiple attributes' do
     assert_equal '<form action="/users" method="post" class="form"></form>', HexletCode.form_for(user,
-                                                                                                 '/users',
-                                                                                                 :post,
+                                                                                                 url: '/users',
                                                                                                  class: 'form').to_s
   end
 

@@ -7,12 +7,17 @@ module HexletCode
   class Error < StandardError; end
   autoload :Tag, 'hexlet_code/tag'
 
-  def self.form_for(struct, url = '#', method = :post, args = {})
+  def self.form_for(struct, args = {})
     args = args.transform_keys(&:to_sym)
-    args.delete(:action)
+    url = args[:url] || '#'
+
+    args.delete(:url)
+
+    method = args[:method] || 'post'
+
     args.delete(:method)
 
-    end_args = { action: url, method: method.to_s }.merge(args)
+    end_args = { action: url, method: method }.merge(args)
 
     form_instance = Form.new(struct, '', end_args)
 
