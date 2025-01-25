@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'form_generator/version'
+require_relative 'hexlet_code/version'
 
 # Form Generator module
 module HexletCode
   class Error < StandardError; end
-  autoload :Tag, 'form_generator/tag'
+  autoload :Tag, 'hexlet_code/tag'
 
   def self.form_for(struct, args = {})
     args = args.transform_keys(&:to_sym)

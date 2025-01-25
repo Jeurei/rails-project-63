@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'test_helper'
-require_relative '../lib/form_generator'
+require_relative '../lib/hexlet_code'
 
 User = Struct.new(:name, :job, keyword_init: true)
 
