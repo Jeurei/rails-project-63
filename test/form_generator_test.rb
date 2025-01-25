@@ -14,12 +14,15 @@ describe 'form_generator' do
 
   it 'should generate a form with fields' do
     assert_equal '<form action="#" method="post" class="form"></form>', HexletCode.form_for(user,
+                                                                                            '#',
+                                                                                            :post,
                                                                                             class: 'form').to_s
   end
 
   it 'should generate a form with multiple attributes' do
     assert_equal '<form action="/users" method="post" class="form"></form>', HexletCode.form_for(user,
-                                                                                                 url: '/users',
+                                                                                                 '/users',
+                                                                                                 :post,
                                                                                                  class: 'form').to_s
   end
 
@@ -89,6 +92,19 @@ describe 'form_generator' do
     end
 
     assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="input" name="name" value="rob" /><label for="job">Job</label><textarea class="textarea" name="job" value="developer"></textarea><input type="submit" value="Save" /></form>',
+                 result.to_s
+  end
+
+  it 'should check' do
+    test_user = User.new name: 'rob', job: ''
+
+    result = HexletCode.form_for(test_user) do |f|
+      f.input :name, class: 'user-input'
+      f.input :job
+      f.submit
+    end
+
+    assert_equal '<form action="#" method="post"><label for="name">Name</label><input class="user-input" name="name" value="rob" /><label for="job">Job</label><input name="job" value="" /><input type="submit" value="Save" /></form>',
                  result.to_s
   end
   it 'should throw an error if the field is not present' do
