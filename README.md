@@ -1,4 +1,4 @@
-Lint ![Tests](https://github.com/Jeurei/rails-project-63/actions/workflows/lint.yml/badge.svg)
+![Tests](https://github.com/Jeurei/rails-project-63/actions/workflows/lint.yml/badge.svg) [![Actions Status](https://github.com/Jeurei/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Jeurei/rails-project-63/actions)
 
 # FormGenerator
 
