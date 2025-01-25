@@ -2,10 +2,18 @@
 
 require_relative 'form_generator/version'
 
+# FormGenerator module
 module FormGenerator
   class Error < StandardError; end
-  autoload :Tag, File.expand_path('form_generator/tag', __dir__)
-end
+  autoload :Tag, 'form_generator/tag'
 
-puts FormGenerator::Tag.new('input', type: 'text', placeholder: 'Enter your name')
-puts FormGenerator::Tag.new('br', type: 'text')
+  def self.form_for(_, args = {})
+    args = args.transform_keys(&:to_sym)
+    url = args[:url] || '#'
+    args.delete(:url)
+
+    args_string = args.map { |key, value| "#{key}=\"#{value}\"" }.join(' ')
+
+    "<form action=\"#{url}\" method=\"post\"#{args_string.empty? ? '' : " #{args_string}"}></form>"
+  end
+end
