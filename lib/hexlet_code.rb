@@ -60,6 +60,10 @@ module HexletCode
       submit
     end
 
+    def current_scope
+      to_s
+    end
+
     def to_s
       HexletCode::Tag.new('form', @args) { @content }.to_s
     end
