@@ -60,7 +60,7 @@ module HexletCode
       submit
     end
 
-    def current_scope
+    def to_html
       to_s
     end
 
