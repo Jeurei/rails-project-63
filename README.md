@@ -1,3 +1,5 @@
+![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
 # FormGenerator
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/form_generator`. To experiment with that code, run `bin/console` for an interactive prompt.
@@ -14,11 +16,11 @@ gem 'form_generator'
 
 And then execute:
 
-    $ bundle install
+    bundle install
 
 Or install it yourself as:
 
-    $ gem install form_generator
+    gem install form_generator
 
 ## Usage
 
@@ -32,4 +34,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/form_generator.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/[USERNAME]/form_generator>.
