@@ -2,43 +2,35 @@
 
 # FormGenerator
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/form_generator`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+FormGenerator is a Ruby gem that simplifies form creation in Ruby applications. It provides an easy-to-use API to generate HTML forms dynamically, reducing boilerplate code and improving maintainability.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+To install FormGenerator, add the following line to your application's Gemfile:
 
 ```ruby
 gem 'form_generator'
 ```
 
-And then execute:
+Then, run:
 
-    bundle install
+```bash
+bundle install
+```
 
-Or install it yourself as:
+Alternatively, you can install the gem manually with:
 
-    gem install form_generator
+```bash
+gem install form_generator
+```
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at <https://github.com/[USERNAME]/form_generator>.
-
-## Usage example
+FormGenerator provides a simple DSL for building HTML forms. Here’s an example of how to use it:
 
 ```ruby
+require 'form_generator'
+
 user = { name: 'John Doe', bio: 'Software Developer' }
 
 form_html = FormGenerator.form_for(user, url: '/submit') do |f|
@@ -47,17 +39,68 @@ f.input :bio, as: :text
 end.to_s
 
 puts form_html
-
-### Output
-
 ```
 
+## Output
+
+```html
 <form action="/submit" method="post">
   <input value="John Doe" />
   <textarea value="Software Developer"></textarea>
 </form>
 ```
 
+## Development
+
+If you want to contribute or modify this gem, follow these steps:
+
+Clone the repository:
+
+```bash
+git clone <https://github.com/Jeurei/form_generator.git>
+cd form_generator
 ```
 
+Install dependencies:
+
+```bash
+bin/setup
 ```
+
+Use an interactive console to experiment with the gem:
+
+```bash
+bin/console
+```
+
+To install the gem on your local machine:
+
+```bash
+bundle exec rake install
+```
+
+To release a new version:
+
+Update the version number in `lib/form_generator/version.rb`
+
+Run:
+
+```bash
+bundle exec rake release
+```
+
+This will create a Git tag, push commits, and publish the gem to RubyGems.
+
+Contributing
+
+Contributions are welcome! Please follow these steps:
+
+Fork the repository.
+
+Create a new branch (`git checkout -b my-feature-branch`).
+
+Make your changes and commit them (`git commit -m 'Add new feature'`).
+
+Push to the branch (`git push origin my-feature-branch`).
+
+Create a pull request on GitHub.
