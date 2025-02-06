@@ -7,10 +7,10 @@ class FormRenderer
   end
 
   def self.prepare_submit(submit)
-    return '' if submit[:options].nil?
+    return "" if submit[:options].nil?
 
     "  #{HexletCode::Tag.new(
-      'input', submit[:options]
+      "input", submit[:options]
     )}\n"
   end
 
@@ -18,7 +18,7 @@ class FormRenderer
     prepared_inputs = prepare_inputs(form_instance.form_body[:inputs])
     prepared_submit = prepare_submit(form_instance.form_body[:submit])
 
-    HexletCode::Tag.new('form', form_instance.form_body[:form_options]) do
+    HexletCode::Tag.new("form", form_instance.form_body[:form_options]) do
       "#{prepared_inputs}#{prepared_submit}"
     end.to_s
   end

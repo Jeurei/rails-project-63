@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'form_element_builder'
-require_relative 'form_renderer'
+require_relative "form_element_builder"
+require_relative "form_renderer"
 
 module HexletCode
   # Form builder
@@ -37,11 +37,11 @@ module HexletCode
     def prepare_form_attributes(args)
       args = args.transform_keys(&:to_sym)
 
-      url = args.fetch(:url, '#')
+      url = args.fetch(:url, "#")
 
       args.delete(:url)
 
-      method = args.fetch(:method, 'post')
+      method = args.fetch(:method, "post")
 
       args.delete(:method)
 
