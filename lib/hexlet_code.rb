@@ -9,8 +9,8 @@ module HexletCode
   autoload :FormBuilder, 'hexlet_code/form_builder'
   autoload :FormRenderer, 'hexlet_code/form_renderer'
 
-  def self.form_for(entity, args = {}, &block)
-    HexletCode::FormBuilder.form_for(entity, args, &block)
+  def self.form_for(entity, args = {}, &)
+    HexletCode::FormBuilder.form_for(entity, args, &)
   end
 
   # Form Generator class
