@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "form_element_builder"
-require_relative "form_renderer"
+require_relative 'form_element_builder'
 
 module HexletCode
   # Form builder
@@ -20,14 +19,6 @@ module HexletCode
       }
     end
 
-    def self.form_for(entity, args = {})
-      form_instance = FormBuilder.new(entity, **args)
-
-      yield(form_instance) if block_given?
-
-      FormRenderer.render_html(form_instance)
-    end
-
     def current_scope
       self
     end
@@ -37,11 +28,11 @@ module HexletCode
     def prepare_form_attributes(args)
       args = args.transform_keys(&:to_sym)
 
-      url = args.fetch(:url, "#")
+      url = args.fetch(:url, '#')
 
       args.delete(:url)
 
-      method = args.fetch(:method, "post")
+      method = args.fetch(:method, 'post')
 
       args.delete(:method)
 

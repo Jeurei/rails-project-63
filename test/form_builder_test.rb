@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "test_helper"
-require_relative "../lib/hexlet_code"
+require_relative 'test_helper'
+require_relative '../lib/hexlet_code'
 
 User = Struct.new(:name, :job, keyword_init: true)
 
-user = User.new name: "rob", job: "developer"
+user = User.new name: 'rob', job: 'developer'
 
-describe "form_builder" do
-  it "should generate a form" do
+describe 'form_builder' do
+  it 'should generate a form' do
     expected = <<~HTML.strip
       <form action="#" method="post">
       </form>
@@ -16,31 +16,31 @@ describe "form_builder" do
     assert_equal expected, HexletCode.form_for(user)
   end
 
-  it "should generate a form with fields" do
+  it 'should generate a form with fields' do
     expected = <<~HTML.strip
       <form action="#" method="post" class="form">
       </form>
     HTML
 
     assert_equal expected, HexletCode.form_for(user,
-                                               class: "form")
+                                               class: 'form')
   end
 
-  it "should generate a form with multiple attributes" do
+  it 'should generate a form with multiple attributes' do
     expected = <<~HTML.strip
       <form action="/users" method="post" class="form">
       </form>
     HTML
 
     assert_equal expected, HexletCode.form_for(user,
-                                               url: "/users",
-                                               class: "form")
+                                               url: '/users',
+                                               class: 'form')
   end
 end
 
-describe "key validation" do
-  it "should throw an error if the field is not present" do
-    assert_raises("Key or method `not_present` not found in the provided struct") do
+describe 'key validation' do
+  it 'should throw an error if the field is not present' do
+    assert_raises('Key or method `not_present` not found in the provided struct') do
       HexletCode.form_for(user) do |f|
         f.input :not_present
       end
@@ -48,10 +48,10 @@ describe "key validation" do
   end
 end
 
-describe "form_generator_with_field" do
-  it "should generate a form with input" do
+describe 'form_generator_with_field' do
+  it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
-      f.input :name, class: "input"
+      f.input :name, class: 'input'
     end.to_s
 
     expected = <<~HTML.strip
@@ -65,8 +65,8 @@ describe "form_generator_with_field" do
   end
 end
 
-describe "form_generator_with_textarea_and_inputs" do
-  it "should generate a form with multiple inputs and textarea" do
+describe 'form_generator_with_textarea_and_inputs' do
+  it 'should generate a form with multiple inputs and textarea' do
     result = HexletCode.form_for(user) do |f|
       f.input :name
       f.input :job, as: :text
@@ -85,11 +85,11 @@ describe "form_generator_with_textarea_and_inputs" do
   end
 end
 
-describe "submit generator" do
-  it "should generate a form with a submit button" do
+describe 'submit generator' do
+  it 'should generate a form with a submit button' do
     result = HexletCode.form_for(user) do |f|
-      f.input :name, class: "input"
-      f.input :job, as: :text, class: "textarea"
+      f.input :name, class: 'input'
+      f.input :job, as: :text, class: 'textarea'
       f.submit
     end.to_s
 

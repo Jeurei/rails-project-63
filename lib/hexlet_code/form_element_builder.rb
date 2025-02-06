@@ -14,8 +14,8 @@ module FormElementBuilder
     @form_body[:inputs].push("\n#{label}\n#{input}")
   end
 
-  def submit(value = "Save")
-    @form_body[:submit] = { options: { type: "submit", value: value } }
+  def submit(value = 'Save')
+    @form_body[:submit] = { options: { type: 'submit', value: value } }
   end
 
   private
@@ -27,23 +27,23 @@ module FormElementBuilder
   end
 
   def build_label(key)
-    "  #{HexletCode::Tag.new("label", for: key) { key.capitalize }}"
+    "  #{HexletCode::Tag.new('label', for: key) { key.capitalize }}"
   end
 
   def build_input(input_tag, key, args)
-    content = input_tag == "textarea" ? @entity[key] : ""
+    content = input_tag == 'textarea' ? @entity[key] : ''
     "  #{HexletCode::Tag.new(input_tag, args) { content }}"
   end
 
   def determine_input_tag(args)
-    as_tag = args.delete(:as) || "input"
-    as_tag.to_s == "text" ? "textarea" : "input"
+    as_tag = args.delete(:as) || 'input'
+    as_tag.to_s == 'text' ? 'textarea' : 'input'
   end
 
   def prepare_attributes(key, args, input_tag)
     args[:name] = key
-    args[:value] = @entity[key] if @entity && input_tag == "input"
-    args[:type] = "text" if input_tag == "input"
+    args[:value] = @entity[key] if @entity && input_tag == 'input'
+    args[:type] = 'text' if input_tag == 'input'
     args
   end
 end
