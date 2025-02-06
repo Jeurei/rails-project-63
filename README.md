@@ -1,12 +1,12 @@
 ![Tests](https://github.com/Jeurei/rails-project-63/actions/workflows/lint.yml/badge.svg) [![Actions Status](https://github.com/Jeurei/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Jeurei/rails-project-63/actions)
 
-# FormGenerator
+# FormBuilder
 
-FormGenerator is a Ruby gem that simplifies form creation in Ruby applications. It provides an easy-to-use API to generate HTML forms dynamically, reducing boilerplate code and improving maintainability.
+FormBuilder is a Ruby gem that simplifies form creation in Ruby applications. It provides an easy-to-use API to generate HTML forms dynamically, reducing boilerplate code and improving maintainability.
 
 ## Installation
 
-To install FormGenerator, add the following line to your application's Gemfile:
+To install FormBuilder, add the following line to your application's Gemfile:
 
 ```ruby
 gem 'form_generator'
@@ -26,14 +26,14 @@ gem install form_generator
 
 ## Usage
 
-FormGenerator provides a simple DSL for building HTML forms. Here’s an example of how to use it:
+FormBuilder provides a simple DSL for building HTML forms. Here’s an example of how to use it:
 
 ```ruby
 require 'form_generator'
 
 user = { name: 'John Doe', bio: 'Software Developer' }
 
-form_html = FormGenerator.form_for(user, url: '/submit') do |f|
+form_html = FormBuilder.form_for(user, url: '/submit') do |f|
 f.input :name
 f.input :bio, as: :text
 end.to_s

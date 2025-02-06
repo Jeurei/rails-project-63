@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Daniil Matveev']
   spec.email = ['d.matveev@voiso.com']
 
-  spec.summary = 'Form generator'
-  spec.description = 'Form generator'
+  spec.summary = 'Form builder'
+  spec.description = 'Form builder'
   spec.homepage = 'https://github.com/Jeurei/rails-project-63'
   spec.required_ruby_version = '>= 2.6.0'
 

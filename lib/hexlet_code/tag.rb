@@ -10,6 +10,7 @@ module HexletCode
     def initialize(tag, args = {})
       @tag = tag.to_s
       @args = args
+
       args_string = args.to_a.reduce('') { |acc, (key, value)| acc + "#{key}=\"#{value}\" " }.strip
 
       content = block_given? ? yield : ''

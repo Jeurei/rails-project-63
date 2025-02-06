@@ -7,20 +7,34 @@ User = Struct.new(:name, :job, keyword_init: true)
 
 user = User.new name: 'rob', job: 'developer'
 
-describe 'form_generator' do
+describe 'form_builder' do
   it 'should generate a form' do
-    assert_equal '<form action="#" method="post"></form>', HexletCode.form_for(user).to_s
+    expected = <<~HTML.strip
+      <form action="#" method="post">
+      </form>
+    HTML
+    assert_equal expected, HexletCode.form_for(user)
   end
 
   it 'should generate a form with fields' do
-    assert_equal '<form action="#" method="post" class="form"></form>', HexletCode.form_for(user,
-                                                                                            class: 'form').to_s
+    expected = <<~HTML.strip
+      <form action="#" method="post" class="form">
+      </form>
+    HTML
+
+    assert_equal expected, HexletCode.form_for(user,
+                                               class: 'form')
   end
 
   it 'should generate a form with multiple attributes' do
-    assert_equal '<form action="/users" method="post" class="form"></form>', HexletCode.form_for(user,
-                                                                                                 url: '/users',
-                                                                                                 class: 'form').to_s
+    expected = <<~HTML.strip
+      <form action="/users" method="post" class="form">
+      </form>
+    HTML
+
+    assert_equal expected, HexletCode.form_for(user,
+                                               url: '/users',
+                                               class: 'form')
   end
 end
 
@@ -34,7 +48,7 @@ describe 'key validation' do
   end
 end
 
-describe 'form_generator_with_fields' do # rubocop:disable Metrics/BlockLength
+describe 'form_generator_with_fields' do
   it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: 'input'
@@ -47,7 +61,7 @@ describe 'form_generator_with_fields' do # rubocop:disable Metrics/BlockLength
       </form>
     HTML
 
-    assert_equal expected.gsub(/>\s+</, '><').gsub("\n", '').strip, result
+    assert_equal expected, result
   end
 
   it 'should generate a form with multiple inputs and textarea' do
@@ -65,7 +79,7 @@ describe 'form_generator_with_fields' do # rubocop:disable Metrics/BlockLength
       </form>
     HTML
 
-    assert_equal expected.gsub(/>\s+</, '><').gsub("\n", '').strip, result
+    assert_equal expected, result
   end
 end
 
@@ -87,6 +101,6 @@ describe 'submit generator' do
       </form>
     HTML
 
-    assert_equal expected.gsub(/>\s+</, '><').gsub("\n", '').strip, result
+    assert_equal expected, result
   end
 end
