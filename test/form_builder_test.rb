@@ -48,7 +48,7 @@ describe 'key validation' do
   end
 end
 
-describe 'form_generator_with_fields' do
+describe 'form_generator_with_field' do
   it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: 'input'
@@ -63,7 +63,9 @@ describe 'form_generator_with_fields' do
 
     assert_equal expected, result
   end
+end
 
+describe 'form_generator_with_textarea_and_inputs' do
   it 'should generate a form with multiple inputs and textarea' do
     result = HexletCode.form_for(user) do |f|
       f.input :name

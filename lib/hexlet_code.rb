@@ -9,11 +9,13 @@ module HexletCode
   autoload :FormBuilder, 'hexlet_code/form_builder'
   autoload :FormRenderer, 'hexlet_code/form_renderer'
 
-  # rubocop:disable Lint/Syntax
-  def self.form_for(entity, args = {}, &block)
-    HexletCode::FormBuilder.form_for(entity, args, &block)
+  def self.form_for(entity, args = {})
+    if block_given?
+      HexletCode::FormBuilder.form_for(entity, args) { |f| yield f }
+    else
+      HexletCode::FormBuilder.form_for(entity, args)
+    end
   end
-  # rubocop:enable Lint/Syntax
 
   # Form Generator class
 end
