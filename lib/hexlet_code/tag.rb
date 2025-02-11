@@ -2,10 +2,10 @@
 
 module HexletCode
   # Create a class Tag that receives a tag and a hash of arguments.
+
+  # Tag class
   class Tag
-    def self.self_closing_tags
-      %w[area base br col command embed hr img input keygen link meta param source track wbr]
-    end
+    SINGLE_TAGS = %w[area base br col command embed hr img input keygen link meta param source track wbr].freeze
 
     def initialize(tag, args = {})
       @tag = tag.to_s
@@ -14,7 +14,7 @@ module HexletCode
       args_string = args.to_a.reduce('') { |acc, (key, value)| acc + "#{key}=\"#{value}\" " }.strip
 
       content = block_given? ? yield : ''
-      @is_self_closing = Tag.self_closing_tags.include?(@tag)
+      @is_self_closing = SINGLE_TAGS.include?(@tag)
 
       @raw_tag = if @is_self_closing
                    "<#{@tag}#{args_string ?   " #{args_string}" : ''} />"
