@@ -6,6 +6,7 @@ require_relative 'hexlet_code/version'
 module HexletCode
   class Error < StandardError; end
   autoload :Tag, 'hexlet_code/tag'
+  autoload :Inputs, 'hexlet_code/inputs/inputs'
   autoload :FormBuilder, 'hexlet_code/form_builder'
   autoload :FormRenderer, 'hexlet_code/form_renderer'
 
@@ -16,6 +17,4 @@ module HexletCode
 
     HexletCode::FormRenderer.render_html(form_instance)
   end
-
-  # Form Generator class
 end

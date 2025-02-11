@@ -4,7 +4,7 @@ module HexletCode
   # Form Renderer
   class FormRenderer
     def self.prepare_inputs(inputs)
-      "#{inputs.map(&:to_s).join}\n"
+      "#{!inputs.empty? ? "\n" : ''}#{inputs.map { |input| "  #{input}" }.join("\n")}\n"
     end
 
     def self.prepare_submit(submit)

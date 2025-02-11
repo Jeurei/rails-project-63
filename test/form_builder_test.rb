@@ -13,6 +13,7 @@ describe 'form_builder' do
       <form action="#" method="post">
       </form>
     HTML
+
     assert_equal expected, HexletCode.form_for(user)
   end
 
@@ -52,7 +53,7 @@ describe 'form_generator_with_field' do
   it 'should generate a form with input' do
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: 'input'
-    end.to_s
+    end
 
     expected = <<~HTML.strip
       <form action="#" method="post">
@@ -66,18 +67,38 @@ describe 'form_generator_with_field' do
 end
 
 describe 'form_generator_with_textarea_and_inputs' do
-  it 'should generate a form with multiple inputs and textarea' do
+  it 'should generate a form with multiple inputs and textarea with default cols and rows' do
     result = HexletCode.form_for(user) do |f|
       f.input :name
       f.input :job, as: :text
-    end.to_s
+    end
 
     expected = <<~HTML.strip
       <form action="#" method="post">
         <label for="name">Name</label>
         <input name="name" value="rob" type="text" />
         <label for="job">Job</label>
-        <textarea name="job">developer</textarea>
+        <textarea name="job" rows="40" cols="20">developer</textarea>
+      </form>
+    HTML
+
+    assert_equal expected, result
+  end
+end
+
+describe 'form_generator_with_textarea_and_inputs' do
+  it 'should generate a form with multiple inputs and textarea with custom cols and rows' do
+    result = HexletCode.form_for(user) do |f|
+      f.input :name
+      f.input :job, as: :text, rows: 20
+    end
+
+    expected = <<~HTML.strip
+      <form action="#" method="post">
+        <label for="name">Name</label>
+        <input name="name" value="rob" type="text" />
+        <label for="job">Job</label>
+        <textarea rows="20" name="job" cols="20">developer</textarea>
       </form>
     HTML
 
@@ -91,14 +112,14 @@ describe 'submit generator' do
       f.input :name, class: 'input'
       f.input :job, as: :text, class: 'textarea'
       f.submit
-    end.to_s
+    end
 
     expected = <<~HTML.strip
       <form action="#" method="post">
         <label for="name">Name</label>
         <input class="input" name="name" value="rob" type="text" />
         <label for="job">Job</label>
-        <textarea class="textarea" name="job">developer</textarea>
+        <textarea class="textarea" name="job" rows="40" cols="20">developer</textarea>
         <input type="submit" value="Save" />
       </form>
     HTML
