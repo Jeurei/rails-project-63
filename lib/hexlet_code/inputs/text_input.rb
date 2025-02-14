@@ -13,9 +13,9 @@ module HexletCode
       def initialize(args)
         rows = args.fetch(:rows, ROWS)
         cols = args.fetch(:cols, COLS)
-        content = args.delete(:value) || ''
+        content = args[:value]
 
-        super(args.merge(rows: rows, cols: cols)) { content }
+        super(args.except(:value).merge(rows: rows, cols: cols)) { content }
       end
     end
   end
